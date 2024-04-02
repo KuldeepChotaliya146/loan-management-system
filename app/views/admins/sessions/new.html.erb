@@ -2,7 +2,7 @@
   <div class="w-full max-w-md">
     <h2 class="text-xl font-semibold mb-4">Admin log in</h2>
 
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }) do |f| %>
       <div class="mb-4">
         <%= f.label :email, class: "block text-gray-700 text-sm font-bold mb-2" %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
