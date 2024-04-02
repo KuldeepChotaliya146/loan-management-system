@@ -4,5 +4,5 @@ class Loan < ApplicationRecord
 
   validates :reason, presence: true
 
-  enum status: %i[requested approved rejected open closed]
+  enum status: %i[requested approved open closed rejected]
 end
