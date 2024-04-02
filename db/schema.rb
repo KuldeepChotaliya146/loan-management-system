@@ -33,6 +33,8 @@ ActiveRecord::Schema[7.1].define(version: 20_240_402_100_829) do
     t.bigint 'user_id', null: false
     t.bigint 'admin_id', null: false
     t.integer 'status', default: 0
+    t.integer 'interest_rate', default: 5
+    t.bigint 'amount', default: 0
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.index ['admin_id'], name: 'index_loans_on_admin_id'

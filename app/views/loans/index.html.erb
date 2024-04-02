@@ -1,0 +1,39 @@
+<header class="bg-blue-500 text-white py-4">
+  <div class="container mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-2xl font-semibold">User Loans</h1>
+      <div>
+          <span class="text-white mr-4">Wallet Balance: <%= current_user.wallet_balance %> ₹</span>
+          <%= link_to "Request Loan", new_loan_path, class: 'text-white font-semibold bg-green-500 px-4 py-2 rounded hover:bg-green-600 transition-colors' %>
+          <%= link_to "Logout", destroy_user_session_path, class: 'text-white font-semibold bg-red-600 px-4 py-2 rounded hover:bg-red-700 transition-colors', data: { turbo_method: 'delete' } %>
+      </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="container mx-auto px-4 py-8">
+  <!-- User Loans Section -->
+  <section class="mb-8">
+    <h2 class="text-lg font-semibold mb-4">User Loans</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Sample Loan Card -->
+        <% if @loans.exists? %>
+          <% @loans.each.with_index(1) do |loan, index| %>
+            <div class="bg-white shadow-md rounded-md p-4">
+                <h3 class="text-lg font-semibold mb-2">Loan <%= index %></h3>
+                <p class="text-gray-500 mb-2">Reason: <%= loan.reason %></p>
+                <p class="text-gray-500 mb-2">Status: <%= loan.status.capitalize %></p>
+                <p class="text-gray-500 mb-2">Amount: <%= loan.amount %>₹</p>
+                <p class="text-gray-500 mb-2">Interset Rate: <%= loan.interest_rate %></p>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="col-span-3">
+            <div class="bg-white shadow-md rounded-md p-4">
+              <h3 class="text-lg font-semibold mb-2">No loans</h3>
+              <p class="text-gray-500 mb-2">There are currently no loans to display.</p>
+            </div>
+          </div>
+        <% end %>
+    </div>
+  </section>
+</main>
