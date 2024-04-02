@@ -6,4 +6,8 @@ class Admin < ApplicationRecord
   validates :name, presence: true
 
   has_many :loans
+
+  def subtract_amount(amount)
+    update(wallet_balance: wallet_balance - amount)
+  end
 end
