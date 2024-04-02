@@ -2,6 +2,7 @@ class LoansController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @wallet_balance = current_user.wallet_balance
     @loans = current_user.loans
   end
 
