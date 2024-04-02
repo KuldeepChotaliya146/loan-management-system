@@ -1,0 +1,7 @@
+<h1>Welcome to the Admin Dashboard</h1>
+<% if current_admin %>
+  <p>Current Admin</p>: <p><%= current_admin.name  %></p>
+  <%= button_to "logout", destroy_admin_session_path, method: :delete  %>
+<% else %>
+  <p>Please login</p>
+<% end %>
