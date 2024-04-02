@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   end
 
   scope :users do
-    resources :loans, only: %i[index new create]
+    resources :loans, only: %i[index new create] do
+      post "/change", to: "loans#change_loan", as: :change
+    end
   end
 end

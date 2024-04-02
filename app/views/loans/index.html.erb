@@ -12,6 +12,12 @@
                 <p class="text-gray-500 mb-2">Status: <%= loan.status.capitalize %></p>
                 <p class="text-gray-500 mb-2">Amount: <%= loan.amount %>₹</p>
                 <p class="text-gray-500 mb-2">Interset Rate: <%= loan.interest_rate %>%</p>
+                <% if loan.status.downcase == 'approved' %>
+                  <div class="flex justify-between">
+                    <%= button_to 'Confirm', loan_change_path(loan, status: 'open'), method: :post, class: 'bg-green-500 text-white px-4 py-2 rounded-md', data: { turbo_confirm: 'Are you sure you want to peoceed this loan request?' } %>
+                    <%= button_to 'Reject', loan_change_path(loan, status: 'rejected'), method: :post, class: 'bg-red-500 text-white px-4 py-2 rounded-md', data: { turbo_confirm: 'Are you sure you want to reject this loan?' } %>
+                  </div>
+                <% end %>
             </div>
           <% end %>
         <% else %>

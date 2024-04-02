@@ -6,4 +6,8 @@ class User < ApplicationRecord
   validates :name, presence: true
 
   has_many :loans
+
+  def add_amount(amount)
+    update(wallet_balance: wallet_balance + amount)
+  end
 end
