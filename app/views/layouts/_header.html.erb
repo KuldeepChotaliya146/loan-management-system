@@ -1,0 +1,19 @@
+<header class="bg-blue-500 text-white py-4">
+  <div class="container mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-2xl font-semibold">Loans</h1>
+      <div>
+          <% if current_admin || current_user %>
+            <% wallet_balance = current_user.present? ? current_user.wallet_balance : current_admin.wallet_balance %>
+            <span class="text-white mr-4">Wallet Balance: <%= wallet_balance %> ₹</span>
+          <% end %>
+          <% if current_user %>
+            <%= link_to "Request Loan", new_loan_path, class: 'text-white font-semibold bg-green-500 px-4 py-2 rounded hover:bg-green-600 transition-colors' %>
+          <% end %>
+
+          <% logout_link = current_user.present? ? destroy_user_session_path : destroy_admin_session_path %>
+          <% if current_admin || current_user %>
+            <%= link_to "Logout", logout_link, class: 'text-white font-semibold bg-red-600 px-4 py-2 rounded hover:bg-red-700 transition-colors', data: { turbo_method: 'delete' } %>
+          <% end %>
+      </div>
+  </div>
+</header>

@@ -1,7 +1,31 @@
-<h1>Welcome to the Admin Dashboard</h1>
-<% if current_admin %>
-  <p>Current Admin</p>: <p><%= current_admin.name  %></p>
-  <%= button_to "logout", destroy_admin_session_path, method: :delete  %>
-<% else %>
-  <p>Please login</p>
-<% end %>
+<div class="container mx-auto">
+  <h1 class="text-2xl font-bold mb-4">Welcome <%= @admin.name %> to Admin Dashboard</h1>
+
+  <!-- Tabular view for requested loans -->
+  <div class="mb-8">
+    <h3 class="text-lg font-bold mb-4">Requested Loans:</h3>
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead>
+        <tr>
+          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">User</th>
+          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Interest Rate</th>
+          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Action</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <% @loan_requests.each do |loan| %>
+          <tr>
+            <td class="px-6 py-4 whitespace-no-wrap"><%= loan.user.name %></td>
+            <td class="px-6 py-4 whitespace-no-wrap"><%= loan.amount %></td>
+            <td class="px-6 py-4 whitespace-no-wrap"><%= loan.interest_rate %></td>
+            <td class="px-6 py-4 whitespace-no-wrap flex items-center">
+              <%= link_to 'Approve', admin_approve_loan_path(loan), class: 'px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 mr-2' %>
+              <%= button_to 'Reject', admin_request_loan_path(loan, status: 'rejected'), method: :post, class: 'px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600', data: { turbo_confirm: 'Are you sure you want to reject this loan request?' } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

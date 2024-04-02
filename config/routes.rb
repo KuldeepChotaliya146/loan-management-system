@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   scope :admin do
     get 'dashboard', to: 'dashboard#index'
+    get ':loan_id/approve', to: 'dashboard#approve_loan', as: :admin_approve_loan
+    post ':loan_id/change-status', to: 'dashboard#change_loan_status', as: :admin_request_loan
   end
 
   scope :users do
