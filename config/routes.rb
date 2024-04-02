@@ -14,6 +14,6 @@ Rails.application.routes.draw do
   end
 
   scope :users do
-    resources :loans, only: [:index, :new, :create]
+    resources :loans, only: %i[index new create]
   end
 end

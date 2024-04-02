@@ -10,7 +10,7 @@ class LoansController < ApplicationController
   end
 
   def create
-    @loan = Loan.new(loan_parms.merge!(user_id: current_user.id, admin_id: Admin.first.id ))
+    @loan = Loan.new(loan_parms.merge!(user_id: current_user.id, admin_id: Admin.first.id))
     if @loan.valid?
       @loan.save
       redirect_to loans_path, notice: 'Loan requested successfully.'
