@@ -63,7 +63,7 @@ class LoansController < ApplicationController
     ActiveRecord::Base.transaction do
       Admin.first.subtract_amount(@loan.amount)
       current_user.add_amount(@loan.amount)
-      @loan.update(status: :open)
+      @loan.update(status: :open, total_amount: @loan.amount)
     end
     redirect_to loans_path, notice: 'Loan credited to your wallet!'
   end
