@@ -24,12 +24,27 @@ class LoansController < ApplicationController
 
   def change_loan
     case params[:status]
-    when "open"
+    when 'open'
       open_loan
-    when "rejected"
+    when 'rejected'
       reject_loan
     else
-      redirect_to loans_path, alert: "Invalid loan status!"
+      redirect_to loans_path, alert: 'Invalid loan status!'
+    end
+  end
+
+  def repay
+    @loan = current_user.loans.find_by(id: params[:id])
+    amount_to_repay = @loan.total_amount
+    if current_user.wallet_balance >= amount_to_repay
+      ActiveRecord::Base.transaction do
+        current_user.remove_amount(amount_to_repay)
+        Admin.first.add_amount(amount_to_repay)
+        @loan.update(status: :closed)
+      end
+      redirect_to loans_path, notice: 'Loan repaid successfully.'
+    else
+      redirect_to loans_path, alert: 'Loan can not be paid because your wallet has insufficent amount!'
     end
   end
 
@@ -37,7 +52,7 @@ class LoansController < ApplicationController
 
   def set_loan
     @loan = current_user.loans.find_by(id: params[:loan_id])
-    redirect_to loans_path, alert: "Loan not exist!" unless @loan
+    redirect_to loans_path, alert: 'Loan not exist!' unless @loan
   end
 
   def loan_params
@@ -50,7 +65,7 @@ class LoansController < ApplicationController
       current_user.add_amount(@loan.amount)
       @loan.update(status: :open)
     end
-    redirect_to loans_path, notice: "Loan credited to your wallet!"
+    redirect_to loans_path, notice: 'Loan credited to your wallet!'
   end
 
   def reject_loan

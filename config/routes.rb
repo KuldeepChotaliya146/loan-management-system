@@ -1,4 +1,5 @@
 require 'sidekiq/web'
+require 'sidekiq/cron/web'
 
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
@@ -17,7 +18,10 @@ Rails.application.routes.draw do
 
   scope :users do
     resources :loans, only: %i[index new create] do
-      post "/change", to: "loans#change_loan", as: :change
+      post '/change', to: 'loans#change_loan', as: :change
+      member do
+        post 'repay'
+      end
     end
   end
 end

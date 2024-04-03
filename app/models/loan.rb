@@ -12,6 +12,6 @@ class Loan < ApplicationRecord
     updated_interest_rate = interest_rate / 100.0
     total_amount = amount * Math.exp(updated_interest_rate * time_period_in_years)
     p "total_amount---->#{total_amount}"
-    update(total_amount: total_amount)
+    update(total_amount:)
   end
 end

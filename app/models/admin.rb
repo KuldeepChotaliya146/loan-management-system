@@ -10,4 +10,8 @@ class Admin < ApplicationRecord
   def subtract_amount(amount)
     update(wallet_balance: wallet_balance - amount)
   end
+
+  def add_amount(amount)
+    update(wallet_balance: wallet_balance + amount)
+  end
 end
