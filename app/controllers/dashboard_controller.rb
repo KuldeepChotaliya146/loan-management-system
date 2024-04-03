@@ -6,19 +6,19 @@ class DashboardController < ApplicationController
   def index
     @admin = current_admin
     @wallet_balance = @admin.wallet_balance
-    params[:filter] ||= "requested"
-    case params[:filter]
-    when 'approved'
-      @loans = Loan.approved.includes(:user)
-    when 'rejected'
-      @loans = Loan.rejected.includes(:user)
-    when 'open'
-      @loans = Loan.open.includes(:user)
-    when 'closed'
-      @loans = Loan.closed.includes(:user)
-    else
-      @loans = Loan.requested.includes(:user)
-    end
+    params[:filter] ||= 'requested'
+    @loans = case params[:filter]
+             when 'approved'
+               Loan.approved.includes(:user)
+             when 'rejected'
+               Loan.rejected.includes(:user)
+             when 'open'
+               Loan.open.includes(:user)
+             when 'closed'
+               Loan.closed.includes(:user)
+             else
+               Loan.requested.includes(:user)
+             end
   end
 
   def approve_loan; end
