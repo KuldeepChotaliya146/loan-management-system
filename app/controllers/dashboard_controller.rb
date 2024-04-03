@@ -31,6 +31,7 @@ class DashboardController < ApplicationController
   end
 
   def handle_loan_approval
+    return redirect_to_dashboard_with_alert('You do not have enough amount to proceed with this loan') if current_admin.wallet_balance < @loan.amount
     if @loan.update(interest_rate: params[:interest_rate], status: :approved)
       redirect_to_dashboard_with_alert('Loan approved successfully!')
     else
