@@ -1,24 +1,41 @@
-# README
+##### Prerequisites
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The setups steps expect following tools installed on the system.
 
-Things you may want to cover:
+- Github
+- Ruby [3.3.0]
+- Rails [7.1.2]
+- Redis [6.2.0]
+- Postgres
 
-* Ruby version
+##### 1. Check out the repository
 
-* System dependencies
+```bash
+git clone https://github.com/KuldeepChotaliya146/loan-management-system.git
+```
 
-* Configuration
+##### 2. Install Gems
 
-* Database creation
+Install Gem dependencies using bundle install
 
-* Database initialization
+```bash
+bundle install
+```
 
-* How to run the test suite
+##### 3. Create and setup the database
 
-* Services (job queues, cache servers, search engines, etc.)
+Run the following commands to create and setup the database.
 
-* Deployment instructions
+```ruby
+bundle exec rake db:setup
+```
 
-* ...
+##### 4. Start the Rails server
+
+You can start the rails server using the command given below.
+
+```ruby
+bin/dev
+```
+
+And now you can visit the site with the URL <http://localhost:3000>
