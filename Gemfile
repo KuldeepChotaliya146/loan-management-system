@@ -48,6 +48,7 @@ gem 'bootsnap', require: false
 # gem "image_processing", "~> 1.2"
 
 gem 'devise'
+gem 'pagy', '~> 8.0'
 gem 'sidekiq'
 gem 'sidekiq-cron'
 
@@ -73,5 +74,3 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
 end
-
-gem "pagy", "~> 8.0"
