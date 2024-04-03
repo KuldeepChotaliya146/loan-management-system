@@ -10,4 +10,8 @@ class User < ApplicationRecord
   def add_amount(amount)
     update(wallet_balance: wallet_balance + amount)
   end
+
+  def remove_amount(amount)
+    update(wallet_balance: wallet_balance - amount)
+  end
 end
