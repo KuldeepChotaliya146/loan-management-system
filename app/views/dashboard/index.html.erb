@@ -1,31 +1,52 @@
 <div class="container mx-auto">
-  <h1 class="text-2xl font-bold mb-4">Welcome <%= @admin.name %> to Admin Dashboard</h1>
+  <h1 class="text-2xl font-bold mb-4">Welcome <%= @admin.name %> to Dashboard</h1>
 
-  <!-- Tabular view for requested loans -->
+  <!-- Filter options -->
+  <div class="mb-4">
+    <label class="font-bold mr-2">Filter:</label>
+    <%= link_to "Requested", dashboard_path(filter: 'requested'), class: filter_class('requested') %>
+    <%= link_to "Approved", dashboard_path(filter: 'approved'), class: filter_class('approved') %>
+    <%= link_to "Open", dashboard_path(filter: 'open'), class: filter_class('open') %>
+    <%= link_to "Closed", dashboard_path(filter: 'closed'), class: filter_class('closed') %>
+  </div>
+
+  <!-- Tabular view for loan requests based on the selected filter -->
   <div class="mb-8">
-    <h3 class="text-lg font-bold mb-4">Requested Loans:</h3>
-    <table class="min-w-full divide-y divide-gray-200">
-      <thead>
-        <tr>
-          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">User</th>
-          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Interest Rate</th>
-          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Action</th>
-        </tr>
-      </thead>
-      <tbody class="bg-white divide-y divide-gray-200">
-        <% @loan_requests.each do |loan| %>
+    <h3 class="text-lg font-bold mb-4">Loans:</h3>
+    <% if @loans.empty? %>
+      <p class="text-gray-500">There are no loans at the moment.</p>
+    <% else %>
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead>
           <tr>
-            <td class="px-6 py-4 whitespace-no-wrap"><%= loan.user.name %></td>
-            <td class="px-6 py-4 whitespace-no-wrap"><%= loan.amount %></td>
-            <td class="px-6 py-4 whitespace-no-wrap"><%= loan.interest_rate %></td>
-            <td class="px-6 py-4 whitespace-no-wrap flex items-center">
-              <%= link_to 'Approve', admin_approve_loan_path(loan), class: 'px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 mr-2' %>
-              <%= button_to 'Reject', admin_request_loan_path(loan, status: 'rejected'), method: :post, class: 'px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600', data: { turbo_confirm: 'Are you sure you want to reject this loan request?' } %>
-            </td>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">User</th>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Interest Rate</th>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Status</th>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Action</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% @loans.each do |loan| %>
+            <tr>
+              <td class="px-6 py-4 whitespace-no-wrap"><%= loan.user.name %></td>
+              <td class="px-6 py-4 whitespace-no-wrap"><%= loan.amount %></td>
+              <td class="px-6 py-4 whitespace-no-wrap"><%= loan.interest_rate %></td>
+              <td class="px-6 py-4 whitespace-no-wrap"><%= loan.status %></td>
+              <td class="px-6 py-4 whitespace-no-wrap flex items-center">
+                <% if loan.status == 'requested' %>
+                  <%= link_to 'Approve', admin_approve_loan_path(loan), class: 'px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 mr-2' %>
+                  <%= button_to 'Reject', admin_request_loan_path(loan, status: 'rejected'), method: :post, class: 'px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600', data: { turbo_confirm: 'Are you sure you want to reject this loan request?' } %>
+                <% else %>
+                  -
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 </div>
+
+
