@@ -6,6 +6,7 @@
     <label class="font-bold mr-2">Filter:</label>
     <%= link_to "Requested", dashboard_path(filter: 'requested'), class: filter_class('requested') %>
     <%= link_to "Approved", dashboard_path(filter: 'approved'), class: filter_class('approved') %>
+    <%= link_to "Rejected", dashboard_path(filter: 'rejected'), class: filter_class('rejected') %>
     <%= link_to "Open", dashboard_path(filter: 'open'), class: filter_class('open') %>
     <%= link_to "Closed", dashboard_path(filter: 'closed'), class: filter_class('closed') %>
   </div>

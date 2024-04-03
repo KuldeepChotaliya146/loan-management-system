@@ -10,6 +10,8 @@ class DashboardController < ApplicationController
     case params[:filter]
     when 'approved'
       @loans = Loan.approved.includes(:user)
+    when 'rejected'
+      @loans = Loan.rejected.includes(:user)
     when 'open'
       @loans = Loan.open.includes(:user)
     when 'closed'
