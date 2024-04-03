@@ -4,7 +4,7 @@ class LoansController < ApplicationController
 
   def index
     @wallet_balance = current_user.wallet_balance
-    @loans = current_user.loans
+    @pagy, @loans = pagy(current_user.loans, items: 10)
   end
 
   def new

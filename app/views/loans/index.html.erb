@@ -2,12 +2,13 @@
   <!-- User Loans Section -->
   <section class="mb-8">
     <h2 class="text-lg font-semibold mb-4">User Loans</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <%== pagy_nav(@pagy) %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
         <!-- Sample Loan Card -->
         <% if @loans.exists? %>
-          <% @loans.each.with_index(1) do |loan, index| %>
+          <% @loans.each do |loan| %>
             <div class="bg-white shadow-md rounded-md p-4">
-                <h3 class="text-lg font-semibold mb-2">Loan <%= index %></h3>
+                <h3 class="text-lg font-semibold mb-2">Loan <%= loan.id %></h3>
                 <p class="text-gray-500 mb-2">Reason: <%= loan.reason %></p>
                 <p class="text-gray-500 mb-2">Status: <%= loan.status.capitalize %></p>
                 <p class="text-gray-500 mb-2">Amount: <%= loan.amount %>₹</p>
