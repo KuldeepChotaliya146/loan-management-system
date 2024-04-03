@@ -1,3 +1,6 @@
 calculate_interest:
   cron: "*/5 * * * *"
   class: "CalculateInterestJob"
+debit_loan_amount:
+  cron: "*/3 * * * *"
+  class: "DebitLoanAmountJob"
