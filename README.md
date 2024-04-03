@@ -4,9 +4,10 @@ The setups steps expect following tools installed on the system.
 
 - Github
 - Ruby [3.3.0]
-- Rails [7.1.2]
+- Rails [7.1.3]
 - Redis [6.2.0]
 - Postgres
+- Nodejs
 
 ##### 1. Check out the repository
 
