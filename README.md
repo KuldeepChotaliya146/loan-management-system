@@ -31,6 +31,16 @@ Run the following commands to create and setup the database.
 bundle exec rake db:setup
 ```
 
+After running above you have one user and one admin with below credentials
+
+```ruby
+Email: kuldeep@gmail.com
+Password: password
+
+Email: admin@gmail.com
+Password: admin123
+```
+
 ##### 4. Start the Rails server
 
 You can start the rails server using the command given below.
