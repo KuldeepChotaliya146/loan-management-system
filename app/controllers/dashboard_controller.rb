@@ -1,10 +1,12 @@
 class DashboardController < ApplicationController
   before_action :authenticate_admin!
+  before_action :authorize_admin
   before_action :set_loan, only: %i[approve_loan change_loan_status]
 
   def index
     @admin = current_admin
     @wallet_balance = @admin.wallet_balance
+    params[:filter] ||= "requested"
     case params[:filter]
     when 'approved'
       @loans = Loan.approved.includes(:user)
@@ -63,5 +65,9 @@ class DashboardController < ApplicationController
 
   def redirect_to_approval_page_with_alert(loan)
     redirect_to admin_approve_loan_path(loan), alert: loan.errors.full_messages.join(',')
+  end
+
+  def authorize_admin
+    redirect_to root_path unless current_admin
   end
 end

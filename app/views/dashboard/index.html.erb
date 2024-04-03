@@ -30,9 +30,9 @@
           <% @loans.each do |loan| %>
             <tr>
               <td class="px-6 py-4 whitespace-no-wrap"><%= loan.user.name %></td>
-              <td class="px-6 py-4 whitespace-no-wrap"><%= loan.amount %></td>
-              <td class="px-6 py-4 whitespace-no-wrap"><%= loan.interest_rate %></td>
-              <td class="px-6 py-4 whitespace-no-wrap"><%= loan.status %></td>
+              <td class="px-6 py-4 whitespace-no-wrap"><%= loan.amount %> ₹</td>
+              <td class="px-6 py-4 whitespace-no-wrap"><%= loan.interest_rate %>%</td>
+              <td class="px-6 py-4 whitespace-no-wrap"><%= loan.status.capitalize %></td>
               <td class="px-6 py-4 whitespace-no-wrap flex items-center">
                 <% if loan.status == 'requested' %>
                   <%= link_to 'Approve', admin_approve_loan_path(loan), class: 'px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600 mr-2' %>
